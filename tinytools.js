@@ -6,7 +6,8 @@
     var logEl = tt.querySelector('#log');
     var old = {
         log: window.console.log,
-        error: window.console.error
+        error: window.console.error,
+        clear: window.console.clear
     };
     if (sessionStorage.getItem('tt-visible') === 'true') {
         tt.style.display = 'block';
@@ -19,7 +20,21 @@
         append(arguments, 'error');
         old.error.apply(window, arguments);
     };
-
+    window.console.clear = function() {
+        logEl.innerHTML = '';
+    };
+    window.console.list = function(o) {
+        var s = [], v;
+        for (var p in o) {
+            v = o[p];
+            if (v === null || v === undefined) {
+                v = typeof v;
+            }
+            v = v.toString().split('\n')[0];
+            s.push(p + ': ' + v);
+        }
+        append([s.sort().join('\n')], 'out');
+    };
     document.addEventListener('keydown', function(e) {
         if (e.which == 82 && e.metaKey) window.location.reload();
         if (e.which == 75 && e.metaKey && e.altKey) {
