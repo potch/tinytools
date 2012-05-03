@@ -1,4 +1,4 @@
-tinytools
-=========
+tinytools- small stand-alone console for Open Web Apps
+======================================================
 
-tinytools
+Open the console with Command+Option+K
